@@ -1,109 +1,335 @@
-# AI Investment Committee
+# 💼AI Investment Committee
 
-A Kaggle capstone project showcasing a production-quality multi-agent AI system that simulates an investment committee to help retail investors make informed decisions.
+> A Multi-Agent AI System that simulates a professional investment committee to analyze stocks and generate comprehensive investment recommendations.
 
-Powered by **FastAPI (Backend)**, **React (Vite + TS Frontend)**, and **Google Gemini API** (`gemini-1.5-flash`).
-
-## Project Features
-
-- **Multi-Agent Deliberations**: Five specialized agents collaborate in real-time:
-  1. **Fundamental Analyst**: Reviews income statements, balance sheets, and key ratios.
-  2. **Technical Analyst**: Reads daily pricing trends, SMA indicators, RSI, and MACD.
-  3. **Market News Analyst**: Analyzes recent company headlines, catalysts, and media sentiment.
-  4. **Risk Manager (Adversarial Check)**: Examines volatility (beta, ATR) and evaluates suitability matching user risk tolerance.
-  5. **Portfolio Manager (Chair)**: Synthesizes committee reports, handles conflict resolution, and writes the final Investment Memo.
-- **Server-Sent Events (SSE)**: Streams live progress logs from the agents to the frontend in real-time.
-- **Modern Dark-Mode Dashboard**: Sleek glassmorphic components, micro-animations, SVG charts, and interactive memos.
+![React](https://img.shields.io/badge/Frontend-React%20%2B%20TypeScript-61DAFB)
+![FastAPI](https://img.shields.io/badge/Backend-FastAPI-009688)
+![Gemini](https://img.shields.io/badge/LLM-Gemini%202.5%20Flash-4285F4)
+![Python](https://img.shields.io/badge/Python-3.13-blue)
 
 ---
 
-## Getting Started
+#  Problem Statement
 
-### 1. Prerequisites
-- Python 3.10 or higher
-- Node.js 18 or higher
-- A Google Gemini API Key
+Retail investors often rely on fragmented information spread across financial statements, technical indicators, and market news. Existing tools typically provide isolated metrics or a single AI response without structured reasoning.
 
----
+Professional investment firms, however, use committees of specialists who independently evaluate different aspects of an investment before reaching a consensus.
 
-### 2. Backend Setup
-
-1. Navigate to the backend folder:
-   ```bash
-   cd backend
-   ```
-2. Create your `.env` file from the example:
-   ```bash
-   cp .env.example .env
-   ```
-3. Edit the `.env` file and insert your `GEMINI_API_KEY`:
-   ```env
-   GEMINI_API_KEY=AIzaSy...
-   ```
-4. Create and activate a virtual environment:
-   ```bash
-   python3 -m venv venv
-   source venv/bin/activate
-   ```
-5. Install dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
-6. Run the FastAPI server:
-   ```bash
-   python -m app.main
-   ```
-   The backend will start on [http://127.0.0.1:8000](http://127.0.0.1:8000).
+This project recreates that workflow using AI Agents.
 
 ---
 
-### 3. Frontend Setup
+#  Solution
 
-1. Navigate to the frontend folder:
-   ```bash
-   cd frontend
-   ```
-2. Install Node packages:
-   ```bash
-   npm install
-   ```
-3. Run the development server:
-   ```bash
-   npm run dev
-   ```
-   The application will start on [http://localhost:5173](http://localhost:5173).
+AI Investment Committee is a multi-agent system that simulates an investment committee using specialized AI agents.
+
+A user enters a stock ticker and investment profile.
+
+The system gathers live financial data, technical indicators, and recent news before distributing the information to independent AI agents.
+
+Each agent performs a specialized analysis and the Portfolio Manager combines every opinion into a final investment recommendation.
 
 ---
 
-## Codebase Architecture
+#  Features
 
-```text
-ai-investment-committee/
-├── backend/
-│   ├── app/
-│   │   ├── main.py                # Server routes and configuration
-│   │   ├── config.py              # Env loading
-│   │   ├── schemas.py             # Pydantic typing
-│   │   ├── data/
-│   │   │   ├── finnhub_client.py  # Market news retriever
-│   │   │   └── yfinance_client.py # Scraping prices, metrics, and financials
-│   │   ├── agents/
-│   │   │   ├── base.py            # Base agent with Gemini connector
-│   │   │   ├── fundamental.py     # Solvency & valuation analysis
-│   │   │   ├── technical.py       # Trend & momentum indicators
-│   │   │   ├── market_news.py     # Sentiment analysis
-│   │   │   ├── risk_manager.py    # Suitability checks & volatility stop-losses
-│   │   │   └── portfolio_mgr.py   # Final memo composition & decision making
-│   │   └── services/
-│   │       └── orchestrator.py    # Committee flow coordinator
-│   └── requirements.txt
-├── frontend/
-│   ├── src/
-│   │   ├── components/            # Visual dashboard panels
-│   │   ├── hooks/                 # custom SSE streaming hook
-│   │   ├── App.tsx                # Dashboard layout
-│   │   ├── index.css              # Custom styling
-│   │   └── types.ts               # TS schemas
-│   └── package.json
-└── README.md
+-  Fundamental Analysis Agent
+-  Technical Analysis Agent
+-  Market News & Sentiment Agent
+-  Risk Assessment Agent
+-  Portfolio Manager Agent
+-  Live Progress Streaming (Server-Sent Events)
+-  Interactive Technical Charts
+-  Executive Investment Memo
+-  Personalized Recommendations based on Risk Profile
+
+---
+
+#  Architecture
+
 ```
+                        User
+                          │
+                          ▼
+                 React + TypeScript
+              Investment Dashboard
+                          │
+             Server Sent Events (SSE)
+                          │
+                          ▼
+                 FastAPI Backend
+                          │
+                          ▼
+             Committee Orchestrator
+                          │
+      ┌──────────┬──────────┬──────────┬──────────┬──────────┐
+      ▼          ▼          ▼          ▼          ▼
+Fundamental  Technical   Market     Risk      Portfolio
+  Agent        Agent      News      Manager     Manager
+                          Agent
+      └──────────┴──────────┴──────────┴──────────┘
+                          │
+                          ▼
+                  Gemini 2.5 Flash API
+                          │
+                          ▼
+               Final Investment Memo
+```
+
+---
+
+#  Multi-Agent Workflow
+
+##  Fundamental Analyst
+
+Evaluates:
+
+- Financial Statements
+- Profitability
+- Revenue Growth
+- Balance Sheet
+- Cash Flow
+- Valuation Multiples
+
+Produces:
+
+- Fundamental Score
+- Bull Points
+- Bear Points
+- Valuation Assessment
+
+---
+
+## Technical Analyst
+
+Evaluates:
+
+- SMA 20 / 50 / 200
+- RSI
+- MACD
+- ATR
+- Support Levels
+- Resistance Levels
+
+Produces:
+
+- Technical Trend
+- Momentum Score
+- Technical Report
+
+---
+
+##  Market News Analyst
+
+Evaluates:
+
+- Recent News
+- Media Sentiment
+- Business Catalysts
+- Market Concerns
+
+Produces:
+
+- Sentiment Score
+- Positive Catalysts
+- Risk Factors
+
+---
+
+##  Risk Manager
+
+Evaluates
+
+- User Risk Tolerance
+- Investment Horizon
+- Market Risk
+- Valuation Risk
+- Portfolio Suitability
+
+Produces
+
+- Risk Rating
+- Alignment Verdict
+- Stop Loss Recommendation
+
+---
+
+##  Portfolio Manager
+
+Combines every specialist opinion and produces
+
+- BUY / HOLD / SELL Recommendation
+- Confidence Score
+- Investment Thesis
+- Bull Case
+- Bear Case
+- Executive Summary
+
+---
+
+#  Tech Stack
+
+## Frontend
+
+- React
+- TypeScript
+- Vite
+- CSS
+
+## Backend
+
+- FastAPI
+- Python
+- Pydantic
+
+## AI
+
+- Google Gemini 2.5 Flash
+
+## Financial Data
+
+- yFinance
+- Finnhub API
+
+---
+
+#  Application Preview
+
+The dashboard provides:
+
+- Live Committee Progress
+- Interactive Price Charts
+- Individual Agent Opinions
+- Risk Assessment
+- Executive Investment Memo
+- Final Recommendation
+
+---
+
+#  Local Setup
+
+## Clone Repository
+
+```bash
+git clone https://github.com/KoumudiSahasrabudhe27/AI-Investment-Committee.git
+
+cd AI-Investment-Committee
+```
+
+---
+
+## Backend
+
+```bash
+cd backend
+
+python -m venv venv
+
+source venv/bin/activate
+
+pip install -r requirements.txt
+
+uvicorn app.main:app --reload
+```
+
+Backend runs on
+
+```
+http://localhost:8000
+```
+
+---
+
+## Frontend
+
+```bash
+cd frontend
+
+npm install
+
+npm run dev
+```
+
+Frontend runs on
+
+```
+http://localhost:5173
+```
+
+---
+
+# 🔑 Environment Variables
+
+Create
+
+```
+backend/.env
+```
+
+Add
+
+```env
+GEMINI_API_KEY=YOUR_GEMINI_API_KEY
+
+FINNHUB_API_KEY=YOUR_FINNHUB_API_KEY
+```
+
+---
+
+# 🎥 Demo
+
+The application demonstrates:
+
+- Live multi-agent collaboration
+- Streaming analysis updates
+- Financial reasoning
+- Technical analysis
+- News sentiment
+- Risk assessment
+- Final committee recommendation
+
+---
+
+# 📚 Concepts Demonstrated
+
+This project demonstrates concepts from Google's **5-Day AI Agents: Intensive Vibe Coding Course**:
+
+✅ Multi-Agent Architecture
+
+✅ Agent Orchestration
+
+✅ Structured LLM Outputs
+
+✅ Server-Sent Events (Real-Time Streaming)
+
+✅ Modular Agent Design
+
+✅ Secure API Key Management
+
+---
+
+# 🔮 Future Improvements
+
+- Portfolio Optimization
+- Historical Backtesting
+- Broker Integration
+- Real-Time Market Streaming
+- Watchlists
+- Email Reports
+- Multi-Currency Support
+
+---
+
+# 👩‍💻 Author
+
+**Koumudi Sahasrabudhe**
+
+GitHub:
+
+https://github.com/KoumudiSahasrabudhe27
+
+---
+
+# 📄 License
+
+This project was developed as part of the **Google × Kaggle – AI Agents: Intensive Vibe Coding Capstone Project**.
