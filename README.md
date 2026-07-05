@@ -235,7 +235,7 @@ uvicorn app.main:app --reload
 Backend runs on
 
 ```
-http://localhost:8000
+[http://localhost:8000](https://ai-investment-committee-ezpd.onrender.com/)
 ```
 
 ---
@@ -253,7 +253,7 @@ npm run dev
 Frontend runs on
 
 ```
-http://localhost:5173
+[http://localhost:5173](https://ai-investment-committee-liart.vercel.app/)
 ```
 
 ---
@@ -271,7 +271,7 @@ Add
 ```env
 GEMINI_API_KEY=YOUR_GEMINI_API_KEY
 
-FINNHUB_API_KEY=YOUR_FINNHUB_API_KEY
+
 ```
 
 ---
