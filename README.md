@@ -1,4 +1,4 @@
-# 💼AI Investment Committee
+# AI Investment Committee
 
 > A Multi-Agent AI System that simulates a professional investment committee to analyze stocks and generate comprehensive investment recommendations.
 
